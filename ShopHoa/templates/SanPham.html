@@ -1,0 +1,327 @@
+{% extends 'layout.html' %}
+{% block title %}SanPham{% endblock %}
+{% block content %}
+     <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Shop Flower</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
+                            <li class="breadcrumb-item active">Flower Shop</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap shop-page section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 order-lg-2 order-2">
+                        <!-- shop-sidebar-wrap start -->
+                        <div class="shop-sidebar-wrap">
+
+                            <!-- shop-sidebar start -->
+                            <div class="shop-sidebar mb-30">
+                                <h4 class="title">FILTER BY PRICE</h4>
+                                <!-- filter-price-content start -->
+                                <div class="filter-price-content">
+                                    <form action="#" method="post">
+                                        <div id="price-slider" class="price-slider"></div>
+                                        <div class="filter-price-wapper">
+                                            <div class="filter-price-cont">
+                                                <span>Price:</span>
+                                                <div class="input-type">
+                                                    <input type="text" id="min-price" readonly="" />
+                                                </div>
+                                                <span>—</span>
+                                                <div class="input-type">
+                                                    <input type="text" id="max-price" readonly="" />
+                                                </div>
+                                                <a class="add-to-cart-button" href="#">
+                                                    <span>FILTER</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- filter-price-content end -->
+                            </div>
+                            <!-- shop-sidebar end -->
+
+                            <!-- shop-sidebar start -->
+                            <div class="shop-sidebar mb-30">
+                                <h4 class="title">Brand</h4>
+                                <ul>
+                                    {%for brand in barnds%}
+                                    <li><a href="{{url_for('get_brand', id = brand.id)}}">{{brand.name}} <span>(18)</span></a></li>
+                                {%endfor%}
+                                </ul>
+                            </div>
+                             <div class="shop-sidebar mb-30">
+                                <h4 class="title">Category</h4>
+                                <ul>
+                                    {%for category in categories%}
+                                    <li><a href="{{url_for('get_category', id = category.id)}}">{{category.name}} <span>(18)</span></a></li>
+                                {%endfor%}
+                                </ul>
+                            </div>
+                            <!-- shop-sidebar end -->
+
+
+                            <!-- shop-sidebar start -->
+
+                            <!-- shop-sidebar end -->
+
+                            <!-- shop-sidebar start -->
+
+
+                            <!-- shop-sidebar start -->
+
+                            <!-- shop-sidebar end -->
+                        </div>
+                        <!-- shop-sidebar-wrap end -->
+                    </div>
+                    <div class="col-lg-9 order-lg-1 order-1">
+                        <!-- shop-product-wrapper start -->
+                        <div class="shop-product-wrapper">
+                            <div class="row">
+                                <div class="col">
+                                    <!-- shop-top-bar start -->
+                                    <div class="shop-top-bar">
+                                        <!-- product-view-mode start -->
+
+                                        <div class="product-mode">
+                                            <!--shop-item-filter-list-->
+                                            <ul class="nav shop-item-filter-list" role="tablist">
+                                                <li class="active"><a class="active" data-toggle="tab" href="#grid"><i class="ion-ios-keypad-outline"></i></a></li>
+                                                <li><a data-toggle="tab" href="#list"><i class="ion-ios-list-outline"></i></a></li>
+                                            </ul>
+                                            <!-- shop-item-filter-list end -->
+                                        </div>
+                                        <!-- product-view-mode end -->
+                                        <!-- product-short start -->
+                                        <div class="product-short">
+                                            <select class="nice-select" name="sortby">
+                                                <option value="trending">Relevance</option>
+                                                <option value="sales">Name(A - Z)</option>
+                                                <option value="sales">Name(Z - A)</option>
+                                                <option value="rating">Price(Low > High)</option>
+                                                <option value="date">Rating(Lowest)</option>
+                                            </select>
+                                        </div>
+                                        <!-- product-short end -->
+                                    </div>
+                                    <!-- shop-top-bar end -->
+                                </div>
+                            </div>
+
+                            <!-- shop-products-wrap start -->
+                            <div class="shop-products-wrap">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="grid">
+                                        <div class="shop-product-wrap">
+                                            <div class="row">
+                                            {%if brand%}
+                                            {% for b in brand.items %}
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="{{url_for('single_page',id= b.id)}}"><img src="{{url_for('static', filename='images/' + b.image_1)}}" alt="{{b.name}}"></a>
+                                                            {%if b.discount >0 %}
+
+                                                            <span class="label">{{b.discount}} % Off</span>
+                                                            {% endif %}
+                                                            <div class="product-action">
+                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-content">
+                                                            <h3><a href="{{url_for('single_page',id= b.id)}}">{{b.name}}</a></h3>
+                                                            <div class="price-box">
+
+                                                                <span class="new-price">{{ '{:,}'.format(b.price|round|int).replace(",", ".") }} Vnđ</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+                                            {% endfor%}
+                             <div class="paginatoin-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <ul class="pagination-box">
+                                            {%if brand.has_prev %}
+                                            <li><a class="Previous" href="{{url_for('get_brand',id = get_b.id,page = get_b.prev_num)}}"><i class="ion-chevron-left"></i></a>
+                                            {% endif%}
+                                            {%if brand.total> 8%}
+                                            {%for page_num in brand.iter_pages() %}
+                                            {% if page_num %}
+                                            {% if brand.page == page_num %}
+                                            <li class="active"><a href="{{url_for('get_brand',id = get_b.id,page = page_num)}}">{{page_num}}</a></li>
+                                            {%else%}
+                                            <li class="active"><a href="{{url_for('get_brand',id = get_b.id,page = page_num)}}">{{page_num}}</a></li>
+                                            {%endif%}
+                                            {% else %}
+                                            {%endif%}
+                                            {%endfor %}
+                                            {%endif%}
+                                            {%if brand.has_next %}
+                                             <li>
+                                                <a class="Next" href="{{url_for('get_brand',id = get_b.id,page = get_b.next_num)}}"><i class="ion-chevron-right"></i> </a>
+                                            </li>
+                                            {%endif%}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                            {% elif get_cat_prod %}
+                                            {% for get_cat in get_cat_prod.items %}
+                                                 <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="{{url_for('single_page',id= get_cat.id)}}"><img src="{{url_for('static', filename='images/' + get_cat.image_1)}}" alt="{{get_cat.name}}"></a>
+                                                            {%if get_cat.discount >0 %}
+
+                                                            <span class="label">{{get_cat.discount}} % Off</span>
+                                                            {% endif %}
+                                                            <div class="product-action">
+                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-content">
+                                                            <h3><a href="{{url_for('single_page',id= get_cat.id)}}">{{get_cat.name}}</a></h3>
+                                                            <div class="price-box">
+
+                                                                <span class="new-price">{{ '{:,}'.format(get_cat.price|round|int).replace(",", ".") }} Vnđ</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+                                            {% endfor %}
+
+                            <div class="paginatoin-area">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <ul class="pagination-box">
+                                            {%if get_cat_prod.has_prev %}
+                                            <li><a class="Previous" href="{{url_for('get_category',id = get_cat.id,page = get_cat_prod.prev_num)}}"><i class="ion-chevron-left"></i></a>
+                                            {% endif%}
+                                            {%if get_cat_prod.total>8 %}
+                                            {%for page_num in get_cat_prod.iter_pages() %}
+                                            {% if page_num %}
+                                            {% if get_cat_prod.page == page_num %}
+                                            <li class="active"><a href="{{url_for('get_category',id = get_cat.id,page = page_num)}}">{{page_num}}</a></li>
+                                            {%else%}
+                                            <li class="active"><a href="{{url_for('get_category',id = get_cat.id,page = page_num)}}">{{page_num}}</a></li>
+                                            {%endif%}
+                                            {% else %}
+                                            {%endif%}
+                                            {%endfor %}
+                                            {%endif%}
+                                            {%if get_cat_prod.has_next %}
+                                             <li>
+                                                <a class="Next" href="{{url_for('get_category',id = get_cat.id,page = get_cat_prod.next_num)}}"><i class="ion-chevron-right"></i> </a>
+                                            </li>
+                                            {%endif%}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                                            {% else %}
+                                            {% for product in products.items %}
+                                                <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="{{url_for('single_page',id= product.id)}}"><img src="{{url_for('static', filename='images/' + product.image_1)}}" width="270px" height="340 px"s alt="{{product.name}}"></a>
+                                                            {%if product.discount >0 %}
+
+                                                            <span class="label">{{product.discount}} % Off</span>
+                                                            {%endif%}
+                                                            <div class="product-action">
+                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-content">
+                                                            <h3><a href="{{url_for('single_page',id= product.id)}}">{{product.name}}</a></h3>
+                                                            <div class="price-box">
+
+                                                                <span class="new-price">{{ '{:,}'.format(product.price|round|int).replace(",", ".") }}Vnđ </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+                                                 {% endfor%}
+                                                <!-- single-product-wrap end -->
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- shop-products-wrap end -->
+
+                    <!-- paginatoin-area start -->
+
+                    <div class="paginatoin-area">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <ul class="pagination-box">
+                                    {%if products.has_prev %}
+                                    <li><a class="Previous" href="{{url_for('SanPham',page = products.prev_num)}}"><i class="ion-chevron-left"></i></a>
+                                        {% endif%}
+                                        {% if products.total> 8 %}
+                                        {% for page_num in products.iter_pages(left_edge=1, right_edge=2, left_current=1,right_current=2) %}
+                                        {% if page_num %}
+                                        {% if products.page == page_num %}
+                                        <li class="active"><a href="{{url_for('SanPham',page = page_num)}}">{{page_num}}</a></li>
+                                        {%else%}
+                                        <li class="active"><a href="{{url_for('SanPham',page = page_num)}}">{{page_num}}</a></li>
+                                        {%endif%}
+                                    {% else %}
+                                    {%endif%}
+                                    {%endfor %} {%endif%}
+                                    {%if products.has_next %}
+                                        <li>
+                                            <a class="Next" href="{{url_for('SanPham',page = products.next_num)}}"><i class="ion-chevron-right"></i> </a>
+                                        </li>
+                                        {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!-- paginatoin-area end -->
+                </div>
+                <!-- shop-product-wrapper end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-content-wrap end -->
+{% endblock content %}

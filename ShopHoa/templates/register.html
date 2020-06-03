@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+ <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Register </h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Register </li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+   {% from "_formhelpers.html" import render_field %}
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb lagin-and-register-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div class="login-register-wrapper">
+                            <!-- login-register-tab-list start -->
+                            <div class="login-register-tab-list nav">
+                                <a class="active" data-toggle="tab" href="#lg1">
+                                    <h4> Register </h4>
+                                </a>
+
+                            </div>
+                            <!-- login-register-tab-list end -->
+                            <div id="lg2" class="tab-pane">
+                                    <div class="login-form-container">
+
+                                        <div class="login-register-form ">
+
+                                            <form  method="POST" action="">
+                                                {{ form.csrf_token }}
+                                                <div class="login-input-box ">
+                                                    <div class="col-md-2"></div>
+                                                  {{ render_field(form.name, class = "form-control") }}
+                                                    {{ render_field(form.username, class = "form-control") }}
+                                                    {{ render_field(form.email, class = "form-control") }}
+                                                    {{ render_field(form.password, class = "form-control") }}
+                                                    {{ render_field(form.confirm, class = "form-control") }}
+                                                    {{form.profile()}}
+
+
+                                                    {{ render_field(form.country, class = "form-control") }}
+                                                    {{ render_field(form.city, class = "form-control") }}
+                                                    {{ render_field(form.contact, class = "form-control") }}
+                                                     {{ render_field(form.address, class = "form-control") }}
+                                                    {{ render_field(form.zipcode, class = "form-control") }}
+                                                     {{ render_field(form.recaptcha, class = "form-control") }}
+                                                   <div class="button-box">
+                                                     {{form.submit()}}
+                                                   </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

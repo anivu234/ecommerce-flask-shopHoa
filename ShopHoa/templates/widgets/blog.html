@@ -1,0 +1,38 @@
+ <div class="blog-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="section-title text-center">
+                            <h2><span>Latest</span> Blog</h2>
+                            <p>Xem những tin tức mới nhất về các loài hoa trên thế giới</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for post in posts  %}
+                                <div class="col-lg-6 col-md-6">
+                                    <!-- single-blog Start -->
+                                    <div class="single-blog mt-30">
+                                        <div class="blog-image">
+                                            <a href="{{url_for('news', id=post.id)}}"><img src="{{url_for('static',filename='images/' + post.image)}}" height="330px" width="550px" alt=""></a>
+                                            <div class="meta-tag">
+                                                <p>{{post.date_pub.strftime('%d \%Y')}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="blog-content">
+                                            <h4><a href="{{url_for('news', id=post.id)}}">{{post.title}}</a></h4>
+                                            <p>{{post.body|truncate(200, True)}} </p>
+                                            <div class="read-more">
+                                                <a href="{{url_for('news', id=post.id)}}">READ MORE</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- single-blog End -->
+                                </div>
+                        {% endfor %}
+
+                </div>
+            </div>
+        </div>

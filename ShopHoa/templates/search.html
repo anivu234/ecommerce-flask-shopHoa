@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+
+ <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Search</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Search     </li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap shop-page section-ptb">
+            <div class="container">
+                <div class="row">
+
+                        <!-- shop-sidebar-wrap end -->
+                    </div>
+                    <div class="col-lg-9 order-lg-1 order-1">
+                        <!-- shop-product-wrapper start -->
+                        <div class="blog-product-wrapper">
+
+                            <div class="row">
+                                 {% for product in products %}
+                               <div class="col-lg-4 col-md-4 col-sm-6">
+                                                    <!-- single-product-wrap start -->
+                                                    <div class="single-product-wrap">
+                                                        <div class="product-image">
+                                                            <a href="{{url_for('single_page',id= product.id)}}"><img src="{{url_for('static', filename='images/' + product.image_1)}}" width="270px" height="340 px"s alt="{{product.name}}"></a>
+                                                            {%if product.discount >0 %}
+
+                                                            <span class="label">{{product.discount}} % Off</span>
+                                                            {%endif%}
+                                                            <div class="product-action">
+                                                                <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                                                <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                                                <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product-content">
+                                                            <h3><a href="{{url_for('single_page',id= product.id)}}">{{product.name}}</a></h3>
+                                                            <div class="price-box">
+
+                                                                <span class="new-price">{{ '{:,}'.format(product.price|round|int).replace(",", ".") }}Vnđ </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+                                                    {%endfor%}
+                                                    <!-- single-product-wrap end -->
+                                                </div>
+
+                            <!-- paginatoin-area start -->
+
+                            <!-- paginatoin-area end -->
+                        </div>
+                        <!-- shop-product-wrapper end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock%}

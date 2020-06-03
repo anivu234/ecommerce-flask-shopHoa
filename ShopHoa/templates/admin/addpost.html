@@ -1,0 +1,44 @@
+{% extends 'admin/layout_admin.html' %}
+
+{% block body %}
+ {% from "_formhelpers.html" import render_field %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          {% include '_messages.html' %}
+                <form method="post" enctype="multipart/form-data">
+                        <div>
+                          {{ render_field(form.title, class="form-control") }}
+
+                            <select name="category" id="category" class="form-control" required>
+                                {% if post %}
+                                <option value="{{post.category}}">{{post.category}}</option>
+                                {% else %}
+                                <option value=" ">Select Category</option>
+                                {% endif %}
+                                <option value="Local News"> Hoa </option>
+                                <option value="Life style">Cây Cảnh</option>
+                                <option value="Entertainemt">Khác</option>
+
+                            </select>
+
+
+                          {{ render_field(form.content, class="form-control", rows=10) }}
+
+                          {% if post %}
+                           <a href="{{ url_for('static', filename='images/'+post.image)}}"> {{ url_for('static', filename='images/'+post.image)}} </a>
+                           {% endif %}
+                          {{ render_field(form.photo, class="form-control") }}
+
+                        </div>
+                        <p><input type=submit value="{% if post %}Update post {% else %} Add post {% endif %}" class="btn btn-info">
+                      </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+ </div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+ <div class="porduct-area section-pb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="section-title text-center">
+                            <h2><span>All</span> Product</h2>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row product-two-row-4">
+                     {% for product in shops%}
+                    <div class="col-lg-12">
+                        <!-- single-product-wrap start -->
+                        <div class="single-product-wrap">
+                            <div class="product-image">
+                                <a href="{{url_for('single_page',id= product.id)}}"><img src="{{url_for('static', filename='images/' + product.image_1)}}"  width="270px" height="340 px alt="{{product.name}}"></a>
+                                {%if product.discount >0 %}
+                                <span class="label">{{product.discount}} % Off</span>
+                                {%endif%}
+                                <div class="product-action">
+                                    <a href="#" class="add-to-cart"><i class="ion-bag"></i></a>
+                                    <a href="#" class="wishlist"><i class="ion-android-favorite-outline"></i></a>
+                                    <a href="#" class="quick-view" data-toggle="modal" data-target="#exampleModalCenter"><i class="ion-ios-search"></i></a>
+                                </div>
+                            </div>
+                            <div class="product-content">
+                                 <h3><a href="{{url_for('single_page',id= product.id)}}">{{product.name}}</a></h3>
+                                <div class="price-box">
+
+                                    <span class="new-price">{{ '{:,}'.format(product.price|round|int).replace(",", ".") }}Vnđ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- single-product-wrap end -->
+                    </div>
+                    {%endfor%}
+                </div>
+                </div>
+            </div>
+        </div>

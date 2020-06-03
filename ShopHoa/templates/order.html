@@ -1,0 +1,140 @@
+{% extends 'layout.html' %}
+{% block title %}Cart{% endblock %}
+
+
+{% block content %}
+<div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Cart</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Cart</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb cart-page">
+            <div class="container">
+                {% include'_messages.html'%}
+                <div class="row">
+
+                    <div class="col-12">
+            Inoice: {{orders.invoice}}
+            <br>
+            Status: {{orders.status}}
+            <br>
+            Customer name: {{customer.name}}
+            <br>
+            Customer email: {{customer.email}}
+
+
+                            <div class="table-content table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart-product-name">STT</th>
+                                            <
+                                            <th class="cart-product-name">Product</th>
+                                            <th class="cart-product-name">Color</th>
+                                            <th class="plantmore-product-price"> Price</th>
+                                            <th class="plantmore-product-quantity">Quantity</th>
+                                            <th class="plantmore-product-price"> Discount</th>
+                                            <th class="plantmore-product-subtotal">Total</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for key, product in orders.orders.items() %}
+                                     {% set discount =(product.discount/100) * product.price|float %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+
+                                            <td class="plantmore-product-name"><a href="#">{{product.name}}</a></td>
+                                            <form action="{{url_for('updatecart', code=key)}}" method="post">
+                                            <td>
+                                                {{product.color| capitalize}}
+                                            </td>
+                                            <td class="plantmore-product-price"><span class="amount">{{ '{:,}'.format(product.price|round|int).replace(",", ".") }} Vnđ</span></td>
+                                            <td class="plantmore-product-quantity">
+                                               <input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}">
+                                            </td>
+                                            {% if product.discount  %}
+                                            <td>{{product.discount}} % </td>
+                                            {% else %}
+                                             <td></td>
+                                            {% endif %}
+                                            {% set subtotal = product.quantity|int * product.price|float  %}
+                                            <td class="product-subtotal"><span class="amount">{{ '{:,}'.format((subtotal - discount)|round|float).replace(",", ".") }} Vnđ</span></td>
+
+</button> </td>
+                                            </form>
+
+                                        </tr>
+                                {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="coupon-all">
+
+                                        <div class="coupon2" style="margin-top:10px">
+
+                                            <a href="/sanpham" class="btn continue-btn">Continue Shopping</a>
+
+                                        <form action="{{url_for('get_pdf',invoice= orders.invoice)}}" method="post" >
+                                            <div style=" margin-left: 600px;">
+                                                 <button type="submit" class="btn btn-info"> Get pdf</button>
+</div>
+                                        </form>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Cart totals</h2>
+                                        <ul>
+
+                                            <li> Grand Total <span>{{ '{:,}'.format(grandTotal|float).replace(",", ".") }} Vnđ </span></li>
+                                        </ul>
+                                        <div style="margin-top:30px; margin-left:120px">
+                                            {% if orders.status == 'Paid' %}
+                                            {%else %}
+                                        <form action="{{url_for('payment')}}" method="POST">
+                                            {%set amount = grandTotal.replace(".","")%}
+                                            <input type="hidden" name="amount" value="{{amount}}">
+                                            <input type="hidden" name="invoice" value="{{orders.invoice}}">
+                                              <script
+                                                src="https://checkout.stripe.com/checkout.js"
+                                                class="stripe-button"
+                                                data-key="pk_test_n6sYRcKl3gZJYiqLbLrHDNH300dOljH8aT"
+                                                data-name="Shop Flower"
+                                                data-description="Comfortable cotton t-shirt"
+                                                data-amount="{{ amount}}"
+                                                data-currency="usd">
+                                              </script>
+                                        </form>
+                                            {%endif%}
+</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+ <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Login </h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Login </li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb lagin-and-register-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div class="login-register-wrapper">
+                            <!-- login-register-tab-list start -->
+                            <div class="login-register-tab-list nav">
+                                <a class="active" data-toggle="tab" href="#lg1">
+                                    <h4> login </h4>
+                                </a>
+
+                            </div>
+                            <!-- login-register-tab-list end -->
+                            <div class="tab-content">
+                                <div id="lg1" class="tab-pane active">
+                                    <div class="login-form-container">
+                                        <div class="login-register-form">
+                                            {% from "_formhelpers.html" import render_field %}
+                                            {% include'_messages.html'%}
+                                            <form method="post">
+                                                {{form.csrf_token}}
+                                                <div class="login-input-box">
+                                                     {{ render_field(form.email) }}
+                                                     {{ render_field(form.password) }}
+                                                    {{ render_field(form.recaptcha) }}
+                                                </div>
+                                                <div class="button-box">
+                                                    <div class="login-toggle-btn">
+
+
+                                                        <a href="{{url_for('reset_request')}}">Forgot Password?</a>
+                                                         <a href="/github">Git</a>
+                                                    </div>
+                                                    <div class="button-box">
+                                                    <input class="login-btn btn" value="Login" type="submit"><span></span></input>
+                                                    </div>
+                                                    <div class="button-box">
+                                                    <div class="login-toggle-btn">
+                                                          Already have an account? <a href="/register " >sign up</a>
+                                                </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

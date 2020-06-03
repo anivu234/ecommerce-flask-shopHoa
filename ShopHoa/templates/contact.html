@@ -1,0 +1,103 @@
+{% extends 'layout.html' %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+ <div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Contact Us</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Contact</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+ <main class="page-content section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-sm-12">
+                        <div class="contact-form">
+                            <div class="contact-form-info">
+                                <div class="contact-title">
+                                    <h3>Contact Us</h3>
+                                </div>
+                                <form ction="{{ url_for('contact') }}" method="POST">
+                                     {{ form.csrf_token }}
+                                    <div class="contact-page-form">
+                                        <div class="contact-input">
+                                            <div class="contact-inner">
+                                            {{ form.name.label }}
+                                                 {{ form.name(class='form-control') }}
+                                                 {% for error in form.name.errors %}
+                                                 <span style="color: red;">[{{ error }}]</span>
+                                            {% endfor %}
+                                            </div>
+                                            <div class="contact-inner">
+                                                {{ form.email.label }}
+                                                {{ form.email(class='form-control') }}
+                                                {% for error in form.email.errors %}
+                                                <span style="color: red;">[{{ error }}]</span>
+                                                 {% endfor %}
+                                            </div>
+                                            <div class="contact-inner">
+                                                 {{ form.phone.label }}
+                                                 {{ form.phone(class='form-control') }}
+                                                 {% for error in form.phone.errors %}
+                                                 <span style="color: red;">[{{ error }}]</span>
+                                                 {% endfor %}
+                                            </div>
+                                            <div class="contact-inner">
+                                                 {{ form.subject.label }}
+                                                 {{ form.subject(class='form-control') }}
+                                                 {% for error in form.subject.errors %}
+                                                  <span style="color: red;">[{{ error }}]</span>
+                                                 {% endfor %}
+                                            </div>
+                                            <div class="contact-inner contact-message">
+                                                {{ form.message.label }}
+                                                 {{ form.message(class='form-control') }}
+                                                 {% for error in form.message.errors %}
+                                                 <span style="color: red;">[{{ error }}]</span>
+                                                 {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="contact-submit-btn">
+                                            {{ form.submit( class="submit-btn" ) }}
+
+                                            <p class="form-messege"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-sm-12">
+                        <div class="contact-infor">
+                            <div class="contact-title">
+                                <h3>Liên Hệ với chúng tôi </h3>
+                            </div>
+                            <div class="contact-dec">
+                                <p>Mọi thắc mắc xin liên hệ với chúng tôi qua </p>
+                            </div>
+                            <div class="contact-address">
+                                <ul>
+                                    <li><i class="zmdi zmdi-home"></i> Address : 107/13 ĐƯờng số 19, Khu phố,Phường Hiệp Bình Chánh, Quận Thủ Đức</li>
+                                    <li><i class="zmdi zmdi-email"></i> nguyễn Công Hoàng Vũ</li>
+                                    <li><i class="zmdi zmdi-phone"></i>0366927218</li>
+                                </ul>
+                            </div>
+                            <div class="work-hours">
+                                <h5>Làm việc:</h5>
+                                <p><strong>Monday &ndash; Saturday</strong>: &nbsp;08AM &ndash; 22PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+{% endblock content %}

@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% block title %}Cart{% endblock %}
+
+
+{% block content %}
+<div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">Cart</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Cart</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb cart-page">
+            <div class="container">
+                 {% include'_messages.html'%}
+                <div class="row">
+                    <div class="col-12">
+
+
+                            <div class="table-content table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart-product-name">STT</th>
+                                            <th class="plantmore-product-thumbnail">Images</th>
+                                            <th class="cart-product-name">Product</th>
+                                            <th class="cart-product-name">Color</th>
+                                            <th class="plantmore-product-price"> Price</th>
+                                            <th class="plantmore-product-quantity">Quantity</th>
+                                            <th class="plantmore-product-price"> Discount</th>
+                                            <th class="plantmore-product-subtotal">Total</th>
+                                            <th class="plantmore-product-subtotal">Update</th>
+                                            <th class="plantmore-product-remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for key, product in session['Shoppingcart'].items() %}
+                                     {% set discount =(product.discount/100) * product.price|float %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td class="plantmore-product-thumbnail"><a href="#"><img src="{{url_for('static',filename='images/'+ product.image)}}" alt="{{product.name}}"></a></td>
+                                            <td class="plantmore-product-name"><a href="#">{{product.name}}</a></td>
+                                            <form action="{{url_for('updatecart', code=key)}}" method="post">
+                                            <td>
+                                                {% set colors = product.colors.split(',') %}
+                        <label for="color">Colors: </label>
+                        <select name="color" id="color">
+                            <option value="{{product.color}}" style="display: none;">{{product.color|capitalize}}</option>
+                            {% for color in colors %}
+                            {% set col = color.split(':') %}
+                            <option value="{{col[0]}}">{{col[0] | capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                                            </td>
+                                            <td class="plantmore-product-price"><span class="amount">{{ '{:,}'.format(product.price|round|int).replace(",", ".") }} Vnđ</span></td>
+                                            <td class="plantmore-product-quantity">
+                                               <input type="number" name="quantity" min="1" max="10" value="{{product.quantity}}">
+                                            </td>
+                                            {% if product.discount  %}
+                                            <td>{{product.discount}} % </td>
+                                            {% else %}
+                                             <td></td>
+                                            {% endif %}
+                                            {% set subtotal = product.quantity|int * product.price|float  %}
+                                            <td class="product-subtotal"><span class="amount">{{ '{:,}'.format((subtotal - discount)|round|float).replace(",", ".") }} Vnđ</span></td>
+                                                <td><button class="btn btn-primary" type="submit" >Update</button>
+</button> </td>
+                                            </form>
+                                            <td class="plantmore-product-remove"><a href="{{url_for('deleteitem', id=key)}}"><i class="ion-close"></i></a></td>
+                                        </tr>
+                                {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                          <form action="#" class="cart-table">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="coupon-all">
+
+                                        <div class="coupon2">
+
+                                            <a href="/sanpham" class="btn continue-btn">Continue Shopping</a>
+                                             <a href="{{url_for('clearcart')}}" class="btn btn-danger btn-sm float-right mr-4"> Clear cart</a>
+                                        </div>
+
+                                        <div class="coupon">
+                                            <h3>Coupon</h3>
+                                            <p>Enter your coupon code if you have one.</p>
+                                            <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
+                                            <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 ml-auto">
+                                    <div class="cart-page-total">
+                                        <h2>Cart totals</h2>
+                                        <ul>
+
+                                            <li> Grand Total <span>{{ '{:,}'.format(grandtotal|round|int).replace(",", ".") }} Vnđ </span></li>
+                                        </ul>
+                                        <a href="{{url_for('get_order')}}" class="proceed-checkout-btn">Order Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

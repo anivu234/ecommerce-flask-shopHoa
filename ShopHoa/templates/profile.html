@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% block title %}My account{% endblock %}
+
+
+{% block content %}
+
+<div class="breadcrumb-area section-ptb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="breadcrumb-title">My account</h2>
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">My account</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb-area end -->
+{% from "_formhelpers.html" import render_field %}
+
+        <!-- main-content-wrap start -->
+        <div class="main-content-wrap section-ptb my-account-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="account-dashboard">
+                            <div class="dashboard-upper-info">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="d-single-info">
+                                            <p class="user-name">Hello <span>Yourmail@info</span></p>
+                                            <p>(not yourmail@info? <a href="{{url_for('customer_logout')}}">Log Out</a>)</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="d-single-info">
+                                            <p>Cần sự trợ giúp? Dịch vụ khách hàng tại.</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-12">
+                                        <div class="d-single-info">
+                                            <p>Gửi e-mail cho họ tại </p>
+                                            <p>nguyenconghoangvu1@gmail.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-12">
+                                        <div class="d-single-info text-lg-center">
+                                            <a href="{{url_for('getCart')}}" class="view-cart"><i class="fa fa-cart-plus"></i>view cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-2">
+                                    <!-- Nav tabs -->
+                                    <ul role="tablist" class="nav flex-column dashboard-list">
+
+
+                                        <li><a href="#account-details" data-toggle="tab" class="nav-link"> My Account</a></li>
+                                        <li><a href="{{url_for('customer_logout')}}" class="nav-link">logout</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-lg-10">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content dashboard-content">
+                    {% include'_messages.html'%}
+                                        <div class="tab-pane fade" id="account-details">
+                                            <h3>Account profile </h3>
+                                            <div class="login">
+                                                <div class="login-form-container">
+                                                    <div class="account-login-form">
+
+
+                                                             <div clas= "content-section">
+                                                            	<div class="media">
+
+                                                            			<div class="media-body">
+                                                            				<h2>{{current_user.username}}</h2>
+                                                            				<p>{{current_user.email}}</p>
+                                                            			</div>
+
+                                                            			<img class="rouded-circle account.img" src="{{profile}}" alt="" style="border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:50%;" height="100px" width="100px">
+
+                                                            	</div>
+
+                                                            </div>
+                                                             <div class="login-register-form ">
+
+                                            <form  method="POST" action="" enctype="multipart/form-data">
+                                            {{form.hidden_tag()}}
+                                                <div class="login-input-box ">
+                                                    <div class="col-md-2"></div>
+
+                                                    {{ render_field(form.username, class = "form-control") }}
+                                                    {{ render_field(form.email, class = "form-control") }}
+                                                    {{form.profile.label()}}
+                                                    {{form.profile(class = "form-control")}}
+
+
+
+
+                                                   <div class="button-box">
+                                                     {{form.submit()}}
+                                                   </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}
